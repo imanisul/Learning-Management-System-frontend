@@ -36,6 +36,29 @@ API Integration: Communicate with backend APIs for data retrieval and storage.
 Authentication: User authentication and authorization.
 Responsive Design: Ensures a great user experience across devices.
 
+### setting up tailwind css
+
+1 . Install Tailwind CSS
+
+```
+npm install -D tailwindcss
+npx tailwindcss init
+```
+2. Configure your template paths
+
+```
+ content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+  ```
+3. Add the Tailwind directives to your CSS
+
+```
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
 
 
 And run all cmd accordingly 
