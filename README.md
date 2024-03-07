@@ -1,10 +1,43 @@
 # LMS Frontend 
 
-## setup instruction
 
-```
-  git clone https://github.com/imanisul/Learning-Management-System-frontend.git
-```
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) (v14.0.0 or newer)
+- [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
+
+## Getting Started
+
+1. Clone the repository:
+
+   ```
+   git clone https://github.com/imanisul/Learning-Management-System-frontend.git
+   ```
+2. Install dependencies:
+   ```
+   npm install
+   ```
+3. Sart the development server:   
+
+  ```
+  npm run dev
+
+
+  ```
+
+  ## Features 
+
+Vite: Lightning-fast build tooling for modern web development.
+Vue.js: Progressive JavaScript framework for building user interfaces.
+Tailwind CSS: A utility-first CSS framework for rapid UI development.
+Routing: Client-side routing using Vue Router.
+State Management: State management using Vuex.
+API Integration: Communicate with backend APIs for data retrieval and storage.
+Authentication: User authentication and authorization.
+Responsive Design: Ensures a great user experience across devices.
+
+
+
 And run all cmd accordingly 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
