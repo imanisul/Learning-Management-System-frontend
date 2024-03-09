@@ -41,7 +41,7 @@ Responsive Design: Ensures a great user experience across devices.
 1 . Install Tailwind CSS
 
 ```
-npm install -D tailwindcss
+npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init
 ```
 2. Configure your template paths
