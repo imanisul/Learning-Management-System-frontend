@@ -5,6 +5,7 @@ import {  Route, Routes } from 'react-router-dom'
 
 import AboutUsPage from './Pages/AboutUsPage.jsx'
 import HomePage from './Pages/HomePage.jsx'
+import Login from './Pages/Login.jsx'
 import NotFound from './Pages/NotFound.jsx'
 import SignUp from './Pages/SignUp.jsx'
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/about" element={<AboutUsPage />}/>
 
         <Route path='/signup' element={<SignUp/>}/>
+        <Route path='/login' element={<Login/>}/>
 
         <Route path="*" element={<NotFound/>}/>
 
