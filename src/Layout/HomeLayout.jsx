@@ -37,7 +37,10 @@ function HomeLayout({children}){
     }
     
     return(
-        <div className="min-h-[90vh]">
+        <div className="min-h-[100vh]">
+            <div className='absolute px-14 mx-8 py-5 end-0 text-5xl font-bold text-orange-700 cursor-pointer italic'>
+                <Link to='/'>Edui.</Link>
+            </div>
             <div className="drawer absolute left-0 z-50 w-fit">
                 <input className="drawer-toggle" id="my-drawer" type="checkbox"/>
                 <div className="drawer-content">
@@ -49,7 +52,7 @@ function HomeLayout({children}){
                 <div className="drawer-side w-0">
                     <label htmlFor="my-drawer" className='drawer-overlay'>
                      </label>
-                     <ul className="menu p-4 w-48 sm:w-80 bg-base-100 text-base-content relative">
+                     <ul className="menu p-4 w-48 h-[100%] sm:w-80 bg-base-100 text-base-content relative">
                         <li className='w-fit absolute right-2 z-50'>
                             <button onClick={hideDrawer}>
                                 <AiFillCloseCircle size={24}/>
@@ -69,15 +72,16 @@ function HomeLayout({children}){
                             <Link to="/courses">Courses</Link>
                         </li>
                         <li>
-                            <Link to="/contact">Contact Us</Link>
-                        </li>
-                        <li>
                             <Link to="/about">About Us</Link>
                         </li>
+                        <li>
+                            <Link to="/contact">Contact Us</Link>
+                        </li>
+                        
 
                         {!isLoggedIn && (
                            <li className='absolute bottom-4 w-[90%]'>
-                              <div className='w-full flex items-center justify-center'>
+                              <div className='w-full py-0 flex items-center justify-center'>
                                 <button className='btn-primary px-4  py-1 font-semibold rounded-md w-full bg-red-500'>
                                     <Link to="/login">Login</Link>
                                 </button>
@@ -90,7 +94,7 @@ function HomeLayout({children}){
                         )}
 
                         {isLoggedIn && (
-                           <li className='absolute bottom-4 w-[90%]'>
+                           <li className='absolute bottom-0  w-[90%]'>
                               <div className='w-full flex items-center justify-center'>
                                 <button className='btn-primary px-4  py-1 font-semibold rounded-md w-full bg-red-500'>
                                     <Link to="/user/profile">Profile</Link>
