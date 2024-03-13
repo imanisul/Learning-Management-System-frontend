@@ -119,7 +119,7 @@ function SignUp() {
             type="file"
             id="image_uploads"
             name="image_uploads"
-            accept=".jpg, jpeg, .png .svg"
+            accept=".jpg, jpeg, .png, .svg"
             className="hidden"
           />
 
