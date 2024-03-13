@@ -4,6 +4,7 @@ import { BsPersonCircle } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
+import { isEmail, isValidNumber, isValidPassword } from "../Helpers/regexMatcher";
 import HomeLayout from "../Layout/HomeLayout";
 import { createAccount } from "../Redux/Slices/AuthSlice";
 
@@ -59,17 +60,17 @@ function SignUp() {
         return;
     }
 
-    if(!signupData.number.match( /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im)){
+    if(!isValidNumber(signupData.number)){
         toast.error("Number must be of 10 digits!");
         return;
     }
 
     if (
-        !signupData.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+        !isEmail(signupData.email)) {
         toast.error("Invalid email!");
         return;
       }
-    if(!signupData.password.match(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/)){
+    if(!isValidPassword(signupData.password)){
         toast.error("Password must be 6 - 16 character with atleast a number and special character");
         return;
     }  
