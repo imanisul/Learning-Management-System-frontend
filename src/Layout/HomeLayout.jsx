@@ -89,7 +89,7 @@ function HomeLayout({children}){
                         {!isLoggedIn && (
                            <li className='absolute bottom-4 w-[90%]'>
                               <div className='w-full py-0 flex items-center justify-center'>
-                                <button className='btn-primary px-4  py-1 font-semibold rounded-md w-full bg-red-500'>
+                                <button className='btn-primary px-4 my-3 py-1 font-semibold rounded-md w-full bg-red-500'>
                                     <Link to="/login">Login</Link>
                                 </button>
                                 <button className='btn-secondary px-4 mx-3 py-1 font-semibold rounded-md w-full bg-orange-400'>
@@ -103,7 +103,7 @@ function HomeLayout({children}){
                         {isLoggedIn && (
                            <li className='absolute bottom-0  w-[90%]'>
                               <div className='w-full flex items-center justify-center'>
-                                <button className='btn-primary px-4  py-1 font-semibold rounded-md w-full bg-red-500'>
+                                <button className='btn-primary px-4  py-1 my-3 font-semibold rounded-md w-full bg-red-500'>
                                     <Link to="/user/profile">Profile</Link>
                                 </button>
                                 <button className='btn-secondary px-4 mx-3 py-1 font-semibold rounded-md w-full bg-orange-400'>
