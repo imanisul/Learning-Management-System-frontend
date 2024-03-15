@@ -1,17 +1,17 @@
 import { createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
-import axiosInstance from '../../Helpers/axiosInstance'
+import axiosaInstance from "../../Helpers/axiosInstance.jsx";
 
-const initialState ={
-    isLoggedIn: localStorage.getItem('isLoggedIn') || false,
-    role: localStorage.getItem('role') || "",
-    data: JSON.parse(localStorage.getItem('data')) || {}
+const initialState = {
+  isLoggedIn: localStorage.getItem("isLoggedIn") || false,
+  role: localStorage.getItem("role") || "",
+  data: JSON.parse(localStorage.getItem("data")) || {},
 };
 
 export const createAccount = createAsyncThunk("/auth/signup", async (data) => {
     try {
-       const res = axiosInstance.post("/user/register", data);
+       const res = axiosaInstance.post("/user/register", data);
        toast.promise(res, {
         loading: "Wait! creating your account!",
         success: (data) => {
@@ -29,7 +29,7 @@ export const createAccount = createAsyncThunk("/auth/signup", async (data) => {
 
 export const login = createAsyncThunk("/auth/login", async (data) => {
     try {
-       const res = axiosInstance.post("/user/login  ", data);
+       const res = axiosaInstance.post("/user/login", data);
        toast.promise(res, {
         loading: "Wait! Redirecting to home page!",
         success: (data) => {
@@ -47,7 +47,7 @@ export const login = createAsyncThunk("/auth/login", async (data) => {
 
 export const logout = createAsyncThunk("auth/logout", async () => {
     try {
-      let res = axiosInstance.post("/user/logout");
+      let res = axiosaInstance.post("/user/logout");
   
       await toast.promise(res, {
         loading: "Loading...",
@@ -57,8 +57,36 @@ export const logout = createAsyncThunk("auth/logout", async () => {
         error: "Failed to log out",
       });
   
-      res = await res;
-      return res.data;
+      return (await res).data;
+    } catch (error) {
+      toast.error(error.message);
+    }
+  });
+
+  export const UpdateProfile = createAsyncThunk("/user/update/profile", async (data) => {
+      try {
+        let res = axiosaInstance.put(`/user/updateprofile/${data[0]}`, data[1]);
+  
+        toast.promise(res, {
+          loading: "Updating...",
+          success: (data) => {
+            return data?.data?.message;
+          },
+          error: "Failed to update profile",
+        });
+        // getting response resolved here
+        res = await res;
+        return res.data;
+      } catch (error) {
+        toast.error(error?.response?.data?.message);
+      }
+    }
+  );
+
+  export const getUserData = createAsyncThunk("user/details", async () => {
+    try {
+      const res = axiosaInstance.get('/user/me');
+       return (await res).data;
     } catch (error) {
       toast.error(error.message);
     }
@@ -82,6 +110,15 @@ const authSlice = createSlice({
             state.isLoggedIn = false;
             state.data = {};
           })
+         .addCase(getUserData.fulfilled, (state, action) => {
+          if(!action?.payload?.user) return;
+          localStorage.setItem("data", JSON.stringify(action?.payload?.user));
+          localStorage.setItem("isLoggedIn", true);
+          localStorage.setItem("role", action?.payload?.user?.role);
+          state.isLoggedIn = true;
+          state.data = action?.payload?.user;
+         })
+      
     }
 });
 
