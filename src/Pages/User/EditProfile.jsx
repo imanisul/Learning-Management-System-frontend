@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import HomeLayout from "../../Layout/HomeLayout.jsx";
-import { getUserData,UpdateProfile } from "../../Redux/Slices/AuthSlice.jsx";
+import { getUserData,UpdateProfile } from "../../Redux/Slices/AuthSlice.js";
 
 function EditProfile(){
 

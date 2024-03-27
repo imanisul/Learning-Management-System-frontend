@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import HomeLayout from "../../Layout/HomeLayout.jsx";
-import { CreateNewCourse } from "../../Redux/Slices/CourseSlice.jsx";
+import { CreateNewCourse } from "../../Redux/Slices/CourseSlice.js";
 
 
 function CreateCourse(){

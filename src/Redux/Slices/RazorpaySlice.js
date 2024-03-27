@@ -9,7 +9,7 @@ const initialState = {
     isPaymentVerified: false,
     allPayments: {},
     finalMonths: {},
-    montlySalesRecord: []
+     monthlySalesRecord: [],
 }
 
 export const getRazorpayid = createAsyncThunk('/razorpay/getId', async () => {
@@ -37,7 +37,7 @@ export const verifyUserPayment = createAsyncThunk('/payments/verify', async (dat
             razorpay_subscription_id: data.razorpay_subscription_id,
             razorpay_signature: data.razorpay_signature
         });
-        return response.data;
+        return response?.data;
     } catch (error) {
         toast.error(error?.response?.data?.message);
     }
@@ -81,6 +81,9 @@ const razorpaySlice = createSlice({
      reducers: {},
      extraReducers: (builder) => {  
         builder
+        .addCase(getRazorpayid.rejected, () => {
+            toast.error("Failed to get razorpay id")
+        })
         .addCase(getRazorpayid.fulfilled, (state, action) => {
             state.key = action?.payload?.key;
         })

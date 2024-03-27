@@ -6,7 +6,7 @@ import axiosaInstance from "../../Helpers/axiosInstance.jsx";
 const initialState = {
   isLoggedIn: localStorage.getItem("isLoggedIn") || false,
   role: localStorage.getItem("role") || "",
-  data: JSON.parse(localStorage.getItem("data")) || {},
+  data:  JSON.parse(localStorage.getItem("data")) || "",
 };
 
 export const createAccount = createAsyncThunk("/auth/signup", async (data) => {
@@ -38,7 +38,7 @@ export const login = createAsyncThunk("/auth/login", async (data) => {
         error: "Failed to login your account!"
        });
 
-       return (await res).data; 
+       return (await res)?.data; 
 
     } catch (error) {
         toast.error(error?.response?.data?.message);
@@ -76,7 +76,7 @@ export const logout = createAsyncThunk("auth/logout", async () => {
         });
         // getting response resolved here
         res = await res;
-        return res.data;
+        return res?.data;
       } catch (error) {
         toast.error(error?.response?.data?.message);
       }
@@ -86,7 +86,7 @@ export const logout = createAsyncThunk("auth/logout", async () => {
   export const getUserData = createAsyncThunk("user/details", async () => {
     try {
       const res = axiosaInstance.get('/user/me');
-       return (await res).data;
+       return (await res)?.data;
     } catch (error) {
       toast.error(error.message);
     }

@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import CourseCart from '../../components/CourseCart.jsx';
 import HomeLayout from '../../Layout/HomeLayout.jsx'
-import { getAllCourses } from '../../Redux/Slices/CourseSlice.jsx';
+import { getAllCourses } from '../../Redux/Slices/CourseSlice.js';
 
 
 function CourseList() {
