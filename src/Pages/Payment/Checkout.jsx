@@ -11,10 +11,10 @@ function Checkout(){
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const razorPayKey = useSelector((state) => state?.razorpay?.key); 
-    const subscription_id = useSelector((state) => state?.razorpay?.subscription_id); 
-    const {isPaymentVerified} = useSelector((state) => state?.razorpay);
-    const userData = useSelector((state) => state?.auth?.data);
+    const razorPayKey = useSelector((state) => state.razorpay.key); 
+    const subscription_id = useSelector((state) => state.razorpay.subscription_id); 
+    const {isPaymentVerified} = useSelector((state) => state.razorpay);
+    const userData = useSelector((state) => state.auth.data);
     const paymentDetails = {
         razorpay_payment_id: "",
         razorpay_subscription_id: "",
@@ -24,6 +24,7 @@ function Checkout(){
     async function handleSubscription(e){
           e.preventDefault();
           if (!razorPayKey || !subscription_id) {
+            toast.error("Something went wrong!");
             return;
           }
           const options = {
@@ -37,21 +38,19 @@ function Checkout(){
                 paymentDetails.razorpay_signature = response.razorpay_signature;
                 paymentDetails.razorpay_subscription_id = response.razorpay_subscription_id;
 
-                toast.success("Payment Successfull!");
+                const res = await dispatch(verifyUserPayment(paymentDetails));
 
-                await dispatch(verifyUserPayment(paymentDetails)); 
-                isPaymentVerified ? navigate("/checkout/success") : navigate("/checkout/failed") 
+                res?.payload?.success ? navigate("/checkout/success") : navigate("/checkout/failed");
             },
-
+                
             theme:{
                 color: '#F37254'
             },
             prefill: {
                email: userData.email,
                name: userData.fullname,
-               number: userData.number
             },
-          }
+          };
 
           const paymentObject = new window.Razorpay(options);   
           paymentObject.open(); 

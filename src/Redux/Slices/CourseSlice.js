@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
-import axiosaInstance from "../../Helpers/axiosInstance";
+import axiosInstance from "../../Helpers/axiosInstance";
 
 const initialState = {
     courseData : []
@@ -9,14 +9,15 @@ const initialState = {
 
 export const getAllCourses = createAsyncThunk("course/get", async () => {
     try {
-        const response = axiosaInstance.get("/courses");
-        toast.promise(response, {
+        const res = axiosInstance.get("/courses");
+        toast.promise(res, {
             loading: "Loading courses....",
             success: "Courses loaded successfully",
             error: "Failed to load courses.."
         });
 
-        return (await response).data.courses;
+        const response = await res;
+        return response.data.courses;
     } catch (error) {   
         toast.error(error?.response?.data?.message);
     }
@@ -31,13 +32,14 @@ export const CreateNewCourse = createAsyncThunk("/course/create", async (data) =
         formData.append("createdBy", data?.createdBy);
         formData.append("thumbnail", data?.thumbnail);
 
-        const response = axiosaInstance.post('/courses', formData);
-        toast.promise(response, {
+        const res = axiosInstance.post('/courses', formData);
+        toast.promise(res, {
             loading:"Creating new Course...",
             success: "Course created successfully!",
             error: "Failed to create course!"
         });
-        return (await response).data;
+        const response = await res;
+        return response.data.courses;
     } catch (error) {
         toast.error(error?.response?.data?.message);
     }
@@ -45,18 +47,17 @@ export const CreateNewCourse = createAsyncThunk("/course/create", async (data) =
 
 
 const courseSlice = createSlice({
-    name: "courses",
+    name: "course",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getAllCourses.fulfilled, (state, action) => {
             if(action.payload){
-                console.log(action.payload)
                 state.courseData = [...action.payload];
             }
-        })
+        });
 
-    }
+    },  
 });
 
 export default courseSlice.reducer;

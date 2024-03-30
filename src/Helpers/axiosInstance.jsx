@@ -2,10 +2,10 @@ import axios from 'axios';
 
 const BASE_URL = "http://localhost:4400/api/v1";
 
-const axiosaInstance = axios.create();
+const axiosInstance = axios.create();
 
-axiosaInstance.defaults.baseURL = BASE_URL;
-axiosaInstance.defaults.withCredentials = true;
+axiosInstance.defaults.baseURL = BASE_URL;
+axiosInstance.defaults.withCredentials = true;
 
-export default axiosaInstance;
+export default axiosInstance;
 
