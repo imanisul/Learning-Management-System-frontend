@@ -89,7 +89,7 @@ export const deleteCourse = createAsyncThunk("course/delete", async (id) => {
         });
 
         const response = await res;
-        return response.data.courses;
+        return response.data;
     } catch (error) {   
         toast.error(error?.response?.data?.message);
     }

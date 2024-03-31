@@ -33,7 +33,7 @@ function CourseDescription() {
 
                 <p className="font-semibold">
                   <span className="text-yellow-500 font-bold">
-                    Total lectures :{" "}
+                    Instructor :{" "}
                   </span>
                   {state?.createdBy}
                 </p>

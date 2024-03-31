@@ -9,7 +9,7 @@ const initialState = {
   isPaymentVerified: false,
   allPayments: {},
   finalMonths: {},
-  monthlySalesRecord: [],
+  monthlySalesRecord: []
 }
 
 export const getRazorpayid = createAsyncThunk('razorpay/getId', async () => {

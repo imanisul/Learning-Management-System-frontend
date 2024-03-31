@@ -1,6 +1,7 @@
 import {ArcElement, BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title,Tooltip} from "chart.js";
 import { useEffect } from "react";
 import {Bar, Pie} from "react-chartjs-2"
+import { BsCollectionPlayFill, BsTrash } from "react-icons/bs";
 import { FaUsers } from "react-icons/fa";
 import {FcSalesPerformance} from "react-icons/fc"
 import { GiMoneyStack } from "react-icons/gi";
@@ -134,8 +135,59 @@ return (
               </div>
             </div>
 
-           <div className="mx-[10%] w-[80%]">
+           <div className="mx-[10%] w-[80%] self-center flex flex-col items-center justify-center gap-10 mb-10">
+              <div className="flex w-full items-center justify-between">
+                <h1 className="text-center text-3xl font-semibold">Course Overview</h1>
+                <button
+                  onClick={() => {
+                    navigate("/course/create")
+                  }}
+                  className="py-2 px-3 text-white text-sm bg-orange-600 hover:bg-rose-600 transition-all ease-in-out duration-300 rounded-sm cursor-pointer font-semibold"
+                >
+                 Create new course
+                </button>
+              </div>
 
+              <table className="table overflow-x-scroll">
+                <thead>
+                    <tr>
+                      <th>S No</th>
+                      <th>Course title</th>
+                      <th>Course Category</th>
+                      <th>Instructor</th>
+                      <th>Total Lectures</th>
+                      <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {myCourses?.map((course, idx) => {
+                        return (
+                            <tr key={course._id}>
+                               <td>{idx+1}</td>
+                               <td>
+                                <textarea readOnly value={course?.title} className="w-40 h-auto bg-transparent resize-none"></textarea>
+                               </td>
+                               <td>{course?.category}</td>
+                               <td>{course?.createdBy}</td>
+                               <td>{course?.numberofLecture}</td>
+                               <td className="flex items-center gap-4">
+                                  <button onClick={() => navigate("/course/displaylecture", {state: {...course}})}
+                                   className="py-2 px-2 text-white text-sm bg-green-600 hover:bg-rose-600 transition-all ease-in-out duration-300 rounded-sm cursor-pointer"
+                                  >
+                                    <BsCollectionPlayFill/>
+                                  </button>
+                                  <button onClick={() => onCourseDelete(course?._id)}
+                                   className="py-2 px-2 text-white text-sm bg-red-600 hover:bg-rose-600 transition-all ease-in-out duration-300 rounded-sm cursor-pointer"
+                                  >
+                                    <BsTrash/>
+                                  </button>
+                               </td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+
+              </table>
            </div>
         </div>
     </HomeLayout>
@@ -146,4 +198,4 @@ return (
   
 }
 
-export default AdminDashboard
+export default AdminDashboard   
