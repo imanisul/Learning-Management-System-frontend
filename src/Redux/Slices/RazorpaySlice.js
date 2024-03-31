@@ -46,6 +46,40 @@ export const verifyUserPayment = createAsyncThunk('razorpay/verifyPayment', asyn
   }
 });
 
+export const getPaymentRecord = createAsyncThunk("paymentrecord", async () => {
+  try {
+    const res = axiosInstance.get("/payments?count=100");
+    toast.promise(res, {
+      loading: "Getting the payments record...",
+      success: (data) => {
+        return data?.data?.message;
+      },
+      error: "Failed to get payment records",
+    });
+
+    const response = await res;
+    return response.data;
+  } catch (error) {
+    toast.error("Operation failed");
+  }
+});
+
+export const cancelCourseBundle = createAsyncThunk("/cancelCourse",async () => {
+  try {
+    const res = axiosInstance.post("/payments/unsubscribe");
+    toast.promise(res, {
+      loading: "Unsubscribing the bundle...",
+      success: "Bundle unsubscibed successfully",
+      error: "Failed to unsubscibe the bundle",
+    });
+    const response = await res;
+    return response.data;
+  } catch (error) {
+    toast.error(error?.response?.data?.message);
+  }
+}
+);
+
 
 
 const razorpaySlice = createSlice({
@@ -54,22 +88,28 @@ const razorpaySlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(getRazorpayid.rejected, () => {
+        toast.error("Failed to get razor pay id");
+      })
       .addCase(getRazorpayid.fulfilled, (state, action) => {
-        state.key = action.payload.key;
+        state.key = action?.payload?.key;
       })
       .addCase(purchaseCourseBundle.fulfilled, (state, action) => {
-        state.subscription_id = action.payload.subscription_id;
+        state.subscription_id = action?.payload?.subscription_id;
       })
       .addCase(verifyUserPayment.fulfilled, (state, action) => {
-        state.isPaymentVerified = action.payload.success;
-        toast.success(action.payload.message);
+        toast.success(action?.payload?.message);
+        state.isPaymentVerified = action?.payload?.success;
       })
-      .addMatcher(
-        (action) => action.type.endsWith('/rejected'),
-        (state, action) => {
-          toast.error(action.error.message);
-        }
-      );
+      .addCase(verifyUserPayment.rejected, (state, action) => {
+        toast.error(action?.payload?.message);
+        state.isPaymentVerified = action?.payload?.success;
+      })
+      .addCase(getPaymentRecord.fulfilled, (state, action) => {
+        state.allPayments = action?.payload?.allPayments;
+        state.finalMonths = action?.payload?.finalMonths;
+        state.monthlySalesRecord = action?.payload?.monthlySalesRecord;
+      });
   },
 });
 
